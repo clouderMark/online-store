@@ -1,4 +1,4 @@
-import './index.scss';
+import './styles/index';
 
 class App {
   x: number;
