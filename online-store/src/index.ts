@@ -1,21 +1,6 @@
 import './styles/index';
+import App from './pages/app';
 
-class App {
-  x: number;
+const app = new App();
 
-  y: number;
-
-  constructor(x: number, y: number) {
-    this.x = x;
-    this.y = y;
-  }
-
-  calculate() {
-    return this.x * this.y;
-  }
-}
-
-const calculator = new App(50, 50);
-
-console.log(calculator.calculate());
-console.log('asdasdads');
+app.run();
