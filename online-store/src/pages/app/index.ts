@@ -1,4 +1,4 @@
-import MainPage from '../main';
+import MainPage from '../main/main';
 import Page from '@/core/templates/page';
 import BasketPage from '../basket';
 import ItemPage from '../item';
