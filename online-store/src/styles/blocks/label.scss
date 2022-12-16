@@ -1,0 +1,50 @@
+.label {
+	&__content {
+		position: relative;
+		width: 35px;
+		&::before {
+			content: '';
+			position: absolute;
+			right: -12px;
+			width: 4.2px;
+			height: 4.2px;
+			border: 1px solid gray;
+		}
+
+		&:hover {
+			color: lighten($color: gray, $amount: 1);
+
+			&::before {
+				border-color: lighten($color: gray, $amount: 20);
+			}
+		}
+
+		&:active {
+			color: darken($color: gray, $amount: 30);
+
+			&::before {
+				border-color: darken($color: gray, $amount: 10);
+			}
+		}
+	}
+
+	&__checkbox:checked+&__content::after {
+		content: '';
+		position: absolute;
+		width: 4.5px;
+		height: 2.5px;
+		border: 0.2vw solid gray;
+		border-top: none;
+		border-right: none;
+		transform: rotate(-45deg);
+		right: -13px;
+		top: 1px;
+	}
+
+	&__checkbox+&__content:hover::after {
+		border-color: lighten($color: gray, $amount: 20);
+	}
+	&__checkbox+&__content:active::after {
+		border-color: darken($color: gray, $amount: 10);
+	}
+}

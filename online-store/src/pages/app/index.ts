@@ -2,7 +2,7 @@ import MainPage from '../main';
 import Page from '@/core/templates/page';
 import BasketPage from '../basket';
 import ItemPage from '../item';
-import Header from '@/core/components/header';
+import Header from '@/core/components/header/header';
 import NotFoundPage from '../notFound';
 
 export const enum PageId {

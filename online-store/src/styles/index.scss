@@ -9,6 +9,10 @@ body {
 	padding-left: 5%;
 	padding-right: 5%;
 	background-color: aqua;
+	font-size: 4.5px;
 }
 
 @import 'blocks/navigation';
+@import 'blocks/category';
+@import 'blocks/label';
+
