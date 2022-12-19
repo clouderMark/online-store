@@ -39,3 +39,16 @@ export const getProdOfACategory = async (name: string) => {
 
   return result;
 };
+
+export const getAllBrands = async () => {
+  const response = await fetch('https://dummyjson.com/products');
+  const result = await response.json();
+  const {products} = result;
+  const brandArr = [];
+
+  for (let i = 0; i < products.length; i++) {
+    brandArr.push(products[i].brand);
+  }
+
+  return Array.from(new Set(brandArr));
+};
