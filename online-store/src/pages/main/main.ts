@@ -1,5 +1,5 @@
 import Page from '@/core/templates/page';
-import Categoty from '@/core/components/category/category';
+import Filter from '@/core/components/filter/filter';
 
 class MainPage extends Page {
   static TextObject = {
@@ -12,9 +12,10 @@ class MainPage extends Page {
 
   render() {
     const title = this.createHeaderTitle(MainPage.TextObject.mainTitle);
-    const category = new Categoty(this.container);
+    const category = new Filter(this.container, 'category');
+    const brand = new Filter(this.container, 'brand');
 
-    this.container.append(title, category.element);
+    this.container.append(title, category.element, brand.element);
 
     return this.container;
   }
