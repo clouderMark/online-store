@@ -8,22 +8,22 @@
 			right: -12px;
 			width: 4.2px;
 			height: 4.2px;
-			border: 1px solid gray;
+			border: 1px solid $label;
 		}
 
 		&:hover {
-			color: lighten($color: gray, $amount: 1);
+			color: lighten($color: $label, $amount: 1);
 
 			&::before {
-				border-color: lighten($color: gray, $amount: 20);
+				border-color: lighten($color: $label, $amount: 20);
 			}
 		}
 
 		&:active {
-			color: darken($color: gray, $amount: 30);
+			color: darken($color: $label, $amount: 30);
 
 			&::before {
-				border-color: darken($color: gray, $amount: 10);
+				border-color: darken($color: $label, $amount: 10);
 			}
 		}
 	}
@@ -33,7 +33,7 @@
 		position: absolute;
 		width: 4.5px;
 		height: 2.5px;
-		border: 0.2vw solid gray;
+		border: 0.2vw solid $label;
 		border-top: none;
 		border-right: none;
 		transform: rotate(-45deg);
@@ -42,9 +42,9 @@
 	}
 
 	&__checkbox+&__content:hover::after {
-		border-color: lighten($color: gray, $amount: 20);
+		border-color: lighten($color: $label, $amount: 20);
 	}
 	&__checkbox+&__content:active::after {
-		border-color: darken($color: gray, $amount: 10);
+		border-color: darken($color: $label, $amount: 10);
 	}
 }
