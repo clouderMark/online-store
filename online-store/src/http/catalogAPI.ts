@@ -1,8 +1,9 @@
 export const getAllProduct = async () => {
   const response = await fetch('https://dummyjson.com/products');
   const result = await response.json();
+  const {products} = result;
 
-  return result;
+  return products;
 };
 
 export const getOneProduct = async (id: number) => {

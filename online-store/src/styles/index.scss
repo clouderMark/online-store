@@ -1,4 +1,5 @@
 @import '~normalize.css';
+@import 'variables';
 @import 'blocks/border-box';
 @import 'blocks/a';
 @import 'blocks/img';
@@ -6,27 +7,18 @@
 @import 'blocks/visually-hidden';
 
 body {
-	padding-left: 5%;
-	padding-right: 5%;
-	background-color: aqua;
+	padding-left: 20px;
+	padding-right: 20px;
+	background-color: $body;
 	font-size: 4.5px;
 }
 
 @import 'blocks/navigation';
 @import 'blocks/category';
 @import 'blocks/label';
+@import 'blocks/brand';
+@import 'blocks/main-page';
+@import 'blocks/product-list';
+@import 'blocks/item';
 
-.brand {
-	display: flex;
-	flex-direction: column;
-	width: 52px;
-	border: 1px solid gray;
-	padding: 2px;
-	margin-bottom: 2px;
-
-	&__label {
-		display: flex;
-		justify-content: space-between;
-	}
-}
 

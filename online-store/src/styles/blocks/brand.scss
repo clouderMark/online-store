@@ -1,12 +1,12 @@
-.category {
+.brand {
 	display: flex;
 	flex-direction: column;
 	width: 52px;
-	height: 70px;
-	overflow-y: scroll;
-	border: 1px solid $category-border;
-	padding: 2px;
+	height: 60px;
 	margin-bottom: 2px;
+	padding: 2px;
+	border: 1px solid $brand-border;
+	overflow-y: scroll;
 
 	&__label {
 		display: flex;
