@@ -1,55 +1,6 @@
-export const getAllProduct = async () => {
-  const response = await fetch('https://dummyjson.com/products');
-  const result = await response.json();
-  const {products} = result;
+export const getAllProducts = async () => {
+  const response = await fetch('https://dummyjson.com/products?limit=100&skip=0');
+  const data = await response.json();
 
-  return products;
-};
-
-export const getOneProduct = async (id: number) => {
-  const response = await fetch(`https://dummyjson.com/products/${id}`);
-  const result = await response.json();
-
-  return result;
-};
-
-export const searchProducts = async (name: string) => {
-  const response = await fetch(`https://dummyjson.com/products/search?q=${name}`);
-  const result = await response.json();
-
-  return result;
-};
-
-export const limitAndSkipProducts = async (limit: number, skip: number, select: Array<string>) => {
-  const response = await fetch(`https://dummyjson.com/products?limit=${limit}&skip=${skip}&select=${select.join(',')}`);
-  const result = await response.json();
-
-  return result;
-};
-
-export const getAllProdCategoies = async () => {
-  const response = await fetch('https://dummyjson.com/products/categories');
-  const result = await response.json();
-
-  return result;
-};
-
-export const getProdOfACategory = async (name: string) => {
-  const response = await fetch(`https://dummyjson.com/products/category/${name}`);
-  const result = await response.json();
-
-  return result;
-};
-
-export const getAllBrands = async () => {
-  const response = await fetch('https://dummyjson.com/products');
-  const result = await response.json();
-  const {products} = result;
-  const brandArr = [];
-
-  for (let i = 0; i < products.length; i++) {
-    brandArr.push(products[i].brand);
-  }
-
-  return Array.from(new Set(brandArr));
+  return data;
 };

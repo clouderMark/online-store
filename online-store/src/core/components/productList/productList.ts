@@ -1,12 +1,11 @@
 import {Template} from '@/core/templates/template';
 import Item from './item';
-import {getAllProduct} from '@/http/catalogAPI';
 import {IItem} from '@/types/type';
 
 class ProductList extends Template {
-  constructor(parent: HTMLElement, thisClass: string) {
+  constructor(parent: HTMLElement, thisClass: string, items: Promise<IItem[]>) {
     super(parent, 'div', thisClass);
-    this.start();
+    this.start(items);
   }
 
   private async prodItemCreator(item: IItem) {
@@ -27,8 +26,8 @@ class ProductList extends Template {
     catalog!.append(productItem.element);
   }
 
-  private start() {
-    getAllProduct()
+  private async start(items: Promise<IItem[]>) {
+    items
       .then((product) => {
         product.forEach(this.prodItemCreator);
       });
