@@ -1,6 +1,7 @@
 import {Template} from '@/core/templates/template';
 import Checkbox from '../checkbox/checkbox';
 import Label from '../label/label';
+import {filterByCategory} from '@/filtration/filtration';
 
 class Filter extends Template {
   type: string;
@@ -25,7 +26,8 @@ class Filter extends Template {
     checkbox.render();
     label.render();
     label.element.addEventListener('change', () => {
-      console.log(label.element.textContent);
+      // console.log(label.element.textContent);
+      filterByCategory(label.element.textContent!);
     });
   }
 
@@ -38,6 +40,7 @@ class Filter extends Template {
     label.render();
     label.element.addEventListener('change', () => {
       console.log(label.element.textContent);
+      // filtration(label.element.textContent!);
     });
   }
 
