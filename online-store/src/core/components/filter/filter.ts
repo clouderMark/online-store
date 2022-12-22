@@ -1,15 +1,14 @@
 import {Template} from '@/core/templates/template';
 import Checkbox from '../checkbox/checkbox';
-import {getAllProdCategoies, getAllBrands} from '@/http/catalogAPI';
 import Label from '../label/label';
 
 class Filter extends Template {
   type: string;
 
-  constructor(parrent: HTMLElement, type: string) {
+  constructor(parrent: HTMLElement, type: string, items: Promise<string[]>) {
     super(parrent, 'div', type);
     this.type = type;
-    this.start();
+    this.start(items);
   }
 
   private async drawVariantsForCategories(el: string) {
@@ -42,16 +41,16 @@ class Filter extends Template {
     });
   }
 
-  private start() {
+  private start(items: Promise<string[]>) {
     if (this.type === 'category') {
-      getAllProdCategoies()
+      items
         .then((category) => {
           category.forEach(this.drawVariantsForCategories);
         });
     }
 
     if (this.type === 'brand') {
-      getAllBrands()
+      items
         .then((brand) => {
           brand.forEach(this.drawVariantsForBrands);
         });
