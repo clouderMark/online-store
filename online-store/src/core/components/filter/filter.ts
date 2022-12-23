@@ -26,7 +26,6 @@ class Filter extends Template {
     checkbox.render();
     label.render();
     label.element.addEventListener('change', () => {
-      // console.log(label.element.textContent);
       filterByCategory(label.element.textContent!);
     });
   }

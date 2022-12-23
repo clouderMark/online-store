@@ -4,15 +4,18 @@ import {IItem} from '@/types/type';
 
 const categories: string[] = [];
 
-export async function filterByCategory(point: string) {
-  categories.push(point);
+export async function filterByCategory(selectedPoints: string) {
+  if (categories.indexOf(selectedPoints) >= 0) {
+    categories.splice(categories.indexOf(selectedPoints), 1);
+  } else {
+    categories.push(selectedPoints);
+  }
+
   ProductList.elem.textContent = '';
   const products: Promise<IItem[]> = await State.getProducts();
+  const filteredItems = Promise.all((await products).filter((item) => useAllArrItems(item.category.toLowerCase())));
 
-  console.log(categories);
-  const filteredItems = Array.from(await products).filter((item) => useAllArrItems(item.category.toLowerCase()));
-
-  console.log(filteredItems);
+  ProductList.start((await filteredItems).length > 0 ? filteredItems : State.getProducts());
 }
 
 function useAllArrItems(value: string) {
