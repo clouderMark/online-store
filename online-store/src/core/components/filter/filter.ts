@@ -2,7 +2,7 @@ import {Template} from '@/core/templates/template';
 import Checkbox from '../checkbox/checkbox';
 import Label from '../label/label';
 // import {filterByCategory} from '@/filtration/filtration';
-import {getFilteredItem} from '@/filtration/getFilteredItem';
+import GetFilteredItem from '@/filtration/getFilteredItem';
 
 class Filter extends Template {
   type: string;
@@ -27,7 +27,7 @@ class Filter extends Template {
     checkbox.render();
     label.render();
     label.element.addEventListener('change', () => {
-      getFilteredItem('category', label.element.textContent!);
+      GetFilteredItem.getFilteredItem('category', label.element.textContent!);
     });
   }
 
@@ -40,7 +40,7 @@ class Filter extends Template {
     label.render();
     label.element.addEventListener('change', () => {
       // console.log(label.element.textContent);
-      getFilteredItem('brand', label.element.textContent!);
+      GetFilteredItem.getFilteredItem('brand', label.element.textContent!);
     });
   }
 

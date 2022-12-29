@@ -48,6 +48,10 @@ input[type='range']:nth-child(1)::-webkit-slider-thumb {
 	&__title {
 		text-align: center;
 		border-bottom: 1px solid $brand-border;
+
+		&:first-letter {
+			text-transform: uppercase;
+		}
 	}
 
 	position: relative;

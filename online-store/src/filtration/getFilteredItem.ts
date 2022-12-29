@@ -2,45 +2,61 @@ import ProductList from '@/core/components/productList/productList';
 import State from '@/state/state';
 import {IItem} from '@/types/type';
 
-const category: Array<string> = [];
-const brand: Array<string> = [];
-const selected: {[key: string]: Array<string>} = {category, brand};
+const category: string[] = [];
+const brand: string[] = [];
+const price: number[] = [0, Infinity];
 
-export async function getFilteredItem(flag: 'category' | 'brand', selectedPoints: string) {
-  if (selected[flag].indexOf(selectedPoints.toLowerCase()) >= 0) {
-    selected[flag].splice(selected[flag].indexOf(selectedPoints.toLowerCase()), 1);
-  } else {
-    selected[flag].push(selectedPoints.toLowerCase());
-  }
+class GetFilteredItem {
+  static selected: {[key: string]: Array<string | number>} = {category, brand, price};
 
-  ProductList.elem.textContent = '';
-  const products: Promise<IItem[]> = await State.getProducts();
-  const filteredItems = Promise.all((await products).filter((item) => checkAllItems(item)));
+  static filteredItems: Promise<IItem[]>;
 
-  ProductList.start((filteredItems));
-  // ProductList.start((await filteredItems).length > 0 ? filteredItems : State.getProducts());
-}
-
-function checkAllItems(item: IItem) {
-  let selectedTypes = 0;
-
-  for (const variable in selected) {
-    if (selected[variable].length > 0) {
-      selectedTypes++;
+  static async getFilteredItem(flag: string, selectedPoints: string | number) {
+    if ((flag === 'category' || flag === 'brand') && typeof selectedPoints === 'string') {
+      if (this.selected[flag].indexOf(selectedPoints.toLowerCase()) >= 0) {
+        this.selected[flag].splice(this.selected[flag].indexOf(selectedPoints.toLowerCase()), 1);
+      } else {
+        this.selected[flag].push(selectedPoints.toLowerCase());
+      }
+    } else if (flag === 'minPrice' && typeof selectedPoints === 'number') {
+      this.selected.price[0] = selectedPoints;
+    } else if (flag === 'maxPrice' && typeof selectedPoints === 'number') {
+      this.selected.price[1] = selectedPoints;
     }
+
+    ProductList.elem.textContent = '';
+    const products: Promise<IItem[]> = await State.getProducts();
+
+    this.filteredItems = Promise.all((await products).filter((item) => this.checkAllItems(item)));
+    ProductList.start(this.filteredItems);
   }
 
-  let result = 0;
+  static checkAllItems(item: IItem) {
+    let selectedTypes = 0;
+    let result = 0;
 
-  for (const variable in selected) {
-    if (variable === 'category' || variable === 'brand') {
-      for (let i = 0; i < selected[variable].length; i++) {
-        if (item[variable].toLowerCase() === selected[variable][i]) {
-          result++;
+    for (const variable in this.selected) {
+      if (this.selected[variable].length > 0) {
+        selectedTypes++;
+      }
+    }
+
+    for (const variable in this.selected) {
+      if (variable === 'category' || variable === 'brand') {
+        for (let i = 0; i < this.selected[variable].length; i++) {
+          if (item[variable].toLowerCase() === this.selected[variable][i]) {
+            result++;
+          }
         }
       }
     }
-  }
 
-  return selectedTypes === result;
+    if (item.price >= this.selected.price[0] && item.price <= this.selected.price[1]) {
+      result++;
+    }
+
+    return selectedTypes === result;
+  }
 }
+
+export default GetFilteredItem;

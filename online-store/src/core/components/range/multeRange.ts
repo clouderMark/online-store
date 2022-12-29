@@ -1,5 +1,8 @@
 import Div from '../div/div';
 import Range from '@/core/components/range/range';
+import GetFilteredItem from '@/filtration/getFilteredItem';
+import {doForMin} from './doForMin';
+import {doForMax} from './doForMax';
 
 class MultiRange extends Div {
   title: string;
@@ -11,8 +14,7 @@ class MultiRange extends Div {
   }
 
   async start(minMax: Promise<{min: number, max: number}>) {
-    const postfix = ` ${this.title === 'Price' ? '$' : ''}`;
-
+    const postfix = ` ${this.title === 'price' ? '$' : ''}`;
     const title = new Div(this.element, 'multirange__title');
     const rangeMin = new Range(this.element, 'min', {
       type: 'range',
@@ -28,38 +30,30 @@ class MultiRange extends Div {
     });
     const min = new Div(this.element, 'range_min left multirange__content');
     const max = new Div(this.element, 'range_max right multirange__content multirange__right');
+    let minVal = '';
+    let maxVal = '';
 
     min.element.textContent = `${(await minMax).min}${postfix}`;
     max.element.textContent = `${(await minMax).max}${postfix}`;
 
-    let minVal;
-    let maxVal;
-
     rangeMin.element.addEventListener('input', () => {
-      minVal = rangeMin.element.value;
-      min.element.textContent = `${minVal}${postfix}`;
-      rangeMin.element.value = minVal;
-
-      if (+rangeMin.element.value > +rangeMax.element.value - 5) {
-        rangeMin.element.value = `${+rangeMax.element.value - 5}`;
-        min.element.textContent = rangeMin.element.value + postfix;
-      }
+      minVal = doForMin(minVal, rangeMin, min, postfix, rangeMax);
     });
 
     rangeMax.element.addEventListener('input', () => {
-      maxVal = rangeMax.element.value;
-      max.element.textContent = `${maxVal} ${this.title === 'Price' ? '$' : ''}`;
-      rangeMax.element.value = maxVal;
-
-      if (+rangeMax.element.value - 5 < +rangeMin.element.value) {
-        rangeMax.element.value = `${+rangeMin.element.value - 5}`;
-        max.element.textContent = rangeMax.element.value + postfix;
-      }
+      maxVal = doForMax(maxVal, rangeMax, max, postfix, rangeMin);
     });
-    title.element.textContent = this.title;
 
+    rangeMin.element.addEventListener('change', () => {
+      GetFilteredItem.getFilteredItem(this.title === 'price' ? 'minPrice' : 'minStock', +minVal);
+    });
+
+    rangeMax.element.addEventListener('change', () => {
+      GetFilteredItem.getFilteredItem(this.title === 'price' ? 'maxPrice' : 'maxStock', +maxVal);
+    });
+
+    title.element.textContent = this.title;
     this.element.append(rangeMin.element, rangeMax.element, min.element, max.element);
   }
 }
-
 export default MultiRange;
