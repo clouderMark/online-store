@@ -5,9 +5,10 @@ import {IItem} from '@/types/type';
 const category: string[] = [];
 const brand: string[] = [];
 const price: number[] = [0, Infinity];
+const stock: number[] = [0, Infinity];
 
 class GetFilteredItem {
-  static selected: {[key: string]: Array<string | number>} = {category, brand, price};
+  static selected: {[key: string]: Array<string | number>} = {category, brand, price, stock};
 
   static filteredItems: Promise<IItem[]>;
 
@@ -22,6 +23,10 @@ class GetFilteredItem {
       this.selected.price[0] = selectedPoints;
     } else if (flag === 'maxPrice' && typeof selectedPoints === 'number') {
       this.selected.price[1] = selectedPoints;
+    } else if (flag === 'minStock' && typeof selectedPoints === 'number') {
+      this.selected.stock[0] = selectedPoints;
+    } else if (flag === 'maxStock' && typeof selectedPoints === 'number') {
+      this.selected.stock[1] = selectedPoints;
     }
 
     ProductList.elem.textContent = '';
@@ -52,6 +57,10 @@ class GetFilteredItem {
     }
 
     if (item.price >= this.selected.price[0] && item.price <= this.selected.price[1]) {
+      result++;
+    }
+
+    if (item.stock >= this.selected.stock[0] && item.stock <= this.selected.stock[1]) {
       result++;
     }
 
