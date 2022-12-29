@@ -3,12 +3,15 @@ import Item from './item';
 import {IItem} from '@/types/type';
 
 class ProductList extends Template {
+  static elem: HTMLElement;
+
   constructor(parent: HTMLElement, thisClass: string, items: Promise<IItem[]>) {
     super(parent, 'div', thisClass);
-    this.start(items);
+    ProductList.elem = this.element;
+    ProductList.start(items);
   }
 
-  private async prodItemCreator(item: IItem) {
+  static async prodItemCreator(item: IItem) {
     const catalog: HTMLElement | null = document.querySelector('.product-list');
     const productItem = new Item(
       catalog!,
@@ -26,7 +29,7 @@ class ProductList extends Template {
     catalog!.append(productItem.element);
   }
 
-  private async start(items: Promise<IItem[]>) {
+  static async start(items: Promise<IItem[]>) {
     items
       .then((product) => {
         product.forEach(this.prodItemCreator);

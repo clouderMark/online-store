@@ -21,8 +21,8 @@ class MainPage extends Page {
     const category = new Filter(this.container, 'category', State.getCategories());
     const brand = new Filter(this.container, 'brand', State.getBrands());
     const productList = new ProductList(this.container, 'product-list', State.getProducts());
-    const priceRange = new MultiRange(this.container, 'Price', State.getMinMaxPrice());
-    const stockRange = new MultiRange(this.container, 'Stock', State.getMinMaxStock());
+    const priceRange = new MultiRange(this.container, 'price', State.getMinMaxPrice());
+    const stockRange = new MultiRange(this.container, 'stock', State.getMinMaxStock());
 
     filter.element.append(category.element, brand.element, priceRange.element, stockRange.element);
     mainPage.element.append(filter.element, productList.element);

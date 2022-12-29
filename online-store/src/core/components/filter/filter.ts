@@ -1,6 +1,8 @@
 import {Template} from '@/core/templates/template';
 import Checkbox from '../checkbox/checkbox';
 import Label from '../label/label';
+// import {filterByCategory} from '@/filtration/filtration';
+import GetFilteredItem from '@/filtration/getFilteredItem';
 
 class Filter extends Template {
   type: string;
@@ -25,19 +27,20 @@ class Filter extends Template {
     checkbox.render();
     label.render();
     label.element.addEventListener('change', () => {
-      console.log(label.element.textContent);
+      GetFilteredItem.getFilteredItem('category', label.element.textContent!);
     });
   }
 
   private async drawVariantsForBrands(el: string) {
-    const category: HTMLElement | null = document.querySelector('.brand');
-    const label = new Label(category!, 'category');
+    const brand: HTMLElement | null = document.querySelector('.brand');
+    const label = new Label(brand!, 'category');
     const checkbox = new Checkbox(label.element, el);
 
     checkbox.render();
     label.render();
     label.element.addEventListener('change', () => {
-      console.log(label.element.textContent);
+      // console.log(label.element.textContent);
+      GetFilteredItem.getFilteredItem('brand', label.element.textContent!);
     });
   }
 
