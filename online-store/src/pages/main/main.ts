@@ -8,7 +8,7 @@ import Select from '@/core/components/select/select';
 
 class MainPage extends Page {
   static TextObject = {
-    mainTitle: 'Online Sore',
+    mainTitle: 'Online Store',
   };
 
   constructor(id: string) {

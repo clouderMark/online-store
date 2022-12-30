@@ -2,7 +2,8 @@ import ProductList from '@/core/components/productList/productList';
 import State from '@/state/state';
 import {IItem} from '@/types/type';
 import emptyPromise from './emptyPromise';
-import {addOptionsByFilter} from './addFilterOptions';
+import {addOptions} from './addOptions';
+import Select from '@/core/components/select/select';
 
 const category: string[] = [];
 const brand: string[] = [];
@@ -15,12 +16,13 @@ class GetFilteredItem {
   static filteredItems: Promise<IItem[]> = emptyPromise;
 
   static async getFilteredItem(flag: string, selectedPoints: string | number) {
-    addOptionsByFilter(flag, selectedPoints, this.selected);
+    addOptions(flag, selectedPoints, this.selected);
 
     ProductList.elem.textContent = '';
     const products: Promise<IItem[]> = await State.getProducts();
 
     this.filteredItems = Promise.all((await products).filter((item) => this.checkAllItems(item)));
+    Select.sort(Select.selectValue);
     ProductList.start(this.filteredItems);
   }
 

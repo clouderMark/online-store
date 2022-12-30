@@ -1,4 +1,4 @@
-export function addOptionsByFilter(
+export function addOptions(
   flag: string,
   option: string | number,
   obj: {[key: string]: Array<string | number>},
