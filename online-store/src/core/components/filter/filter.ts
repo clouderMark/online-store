@@ -2,7 +2,7 @@ import {Template} from '@/core/templates/template';
 import Checkbox from '../checkbox/checkbox';
 import Label from '../label/label';
 // import {filterByCategory} from '@/filtration/filtration';
-import GetFilteredItem from '@/filtration/getFilteredItem';
+import GetFilteredItem from '@/filtration/addOptionsByFilter';
 
 class Filter extends Template {
   type: string;
