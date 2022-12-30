@@ -23,7 +23,7 @@ class GetFilteredItem {
 
     this.filteredItems = Promise.all((await products).filter((item) => this.checkAllItems(item)));
     Select.sort(Select.selectValue);
-    ProductList.start(this.filteredItems);
+    // ProductList.start(this.filteredItems);
   }
 
   static checkAllItems(item: IItem) {
