@@ -1,6 +1,6 @@
 import Div from '../div/div';
 import Range from '@/core/components/range/range';
-import GetFilteredItem from '@/filtration/getFilteredItem';
+import GetFilteredItem from '@/filtration/addOptionsByFilter';
 import {doForMin} from './doForMin';
 import {doForMax} from './doForMax';
 

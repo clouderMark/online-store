@@ -4,10 +4,11 @@ import Div from '@/core/components/div/div';
 import ProductList from '@/core/components/productList/productList';
 import MultiRange from '@/core/components/range/multeRange';
 import State from '@/state/state';
+import Select from '@/core/components/select/select';
 
 class MainPage extends Page {
   static TextObject = {
-    mainTitle: 'Online Sore',
+    mainTitle: 'Online Store',
   };
 
   constructor(id: string) {
@@ -20,12 +21,15 @@ class MainPage extends Page {
     const filter = new Div(mainPage.element, 'filter');
     const category = new Filter(this.container, 'category', State.getCategories());
     const brand = new Filter(this.container, 'brand', State.getBrands());
-    const productList = new ProductList(this.container, 'product-list', State.getProducts());
     const priceRange = new MultiRange(this.container, 'price', State.getMinMaxPrice());
     const stockRange = new MultiRange(this.container, 'stock', State.getMinMaxStock());
+    const productPage = new Div(this.container, 'product-page');
+    const select = new Select(this.container, 'select');
+    const productList = new ProductList(this.container, 'product-list', State.getProducts());
 
     filter.element.append(category.element, brand.element, priceRange.element, stockRange.element);
-    mainPage.element.append(filter.element, productList.element);
+    productPage.element.append(select.element, productList.element);
+    mainPage.element.append(filter.element, productPage.element);
     this.container.append(title, mainPage.element);
 
     return this.container;

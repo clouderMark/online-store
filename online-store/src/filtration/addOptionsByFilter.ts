@@ -1,6 +1,9 @@
 import ProductList from '@/core/components/productList/productList';
 import State from '@/state/state';
 import {IItem} from '@/types/type';
+import emptyPromise from './emptyPromise';
+import {addOptions} from './addOptions';
+import Select from '@/core/components/select/select';
 
 const category: string[] = [];
 const brand: string[] = [];
@@ -10,29 +13,16 @@ const stock: number[] = [0, Infinity];
 class GetFilteredItem {
   static selected: {[key: string]: Array<string | number>} = {category, brand, price, stock};
 
-  static filteredItems: Promise<IItem[]>;
+  static filteredItems: Promise<IItem[]> = emptyPromise;
 
   static async getFilteredItem(flag: string, selectedPoints: string | number) {
-    if ((flag === 'category' || flag === 'brand') && typeof selectedPoints === 'string') {
-      if (this.selected[flag].indexOf(selectedPoints.toLowerCase()) >= 0) {
-        this.selected[flag].splice(this.selected[flag].indexOf(selectedPoints.toLowerCase()), 1);
-      } else {
-        this.selected[flag].push(selectedPoints.toLowerCase());
-      }
-    } else if (flag === 'minPrice' && typeof selectedPoints === 'number') {
-      this.selected.price[0] = selectedPoints;
-    } else if (flag === 'maxPrice' && typeof selectedPoints === 'number') {
-      this.selected.price[1] = selectedPoints;
-    } else if (flag === 'minStock' && typeof selectedPoints === 'number') {
-      this.selected.stock[0] = selectedPoints;
-    } else if (flag === 'maxStock' && typeof selectedPoints === 'number') {
-      this.selected.stock[1] = selectedPoints;
-    }
+    addOptions(flag, selectedPoints, this.selected);
 
     ProductList.elem.textContent = '';
     const products: Promise<IItem[]> = await State.getProducts();
 
     this.filteredItems = Promise.all((await products).filter((item) => this.checkAllItems(item)));
+    Select.sort(Select.selectValue);
     ProductList.start(this.filteredItems);
   }
 
