@@ -4,6 +4,7 @@ import {IItem} from '@/types/type';
 import emptyPromise from './emptyPromise';
 import {addOptions} from './addOptions';
 import Select from '@/core/components/select/select';
+import Search from '@/core/components/search/search';
 
 const category: string[] = [];
 const brand: string[] = [];
@@ -23,6 +24,7 @@ class GetFilteredItem {
 
     this.filteredItems = Promise.all((await products).filter((item) => this.checkAllItems(item)));
     Select.sort(Select.selectValue);
+    Search.search(Search.searchingValue);
     // ProductList.start(this.filteredItems);
   }
 

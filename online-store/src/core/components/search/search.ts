@@ -1,6 +1,6 @@
 import InputTmp from './inputTmp';
 import {IItem} from '@/types/type';
-// import GetFilteredItem from '@/filtration/addOptionsByFilter';
+import GetFilteredItem from '@/filtration/addOptionsByFilter';
 import State from '@/state/state';
 import ProductList from '../productList/productList';
 
@@ -17,12 +17,17 @@ class Search extends InputTmp {
     this.element.addEventListener('input', () => {
       Search.searchingValue = this.element.value.toLowerCase();
 
-      this.search(Search.searchingValue);
+      Search.search(Search.searchingValue);
     });
   }
 
-  async search(value: string) {
-    let products: Promise<IItem[]> = await State.getProducts();
+  static async search(value: string) {
+    let products: Promise<IItem[]> = Promise.all((await GetFilteredItem.filteredItems));
+
+    if ((await products)[0].title === 'empty') {
+      products = await State.getProducts();
+      products = Promise.all(await products);
+    }
 
     products = Promise.all((await products).filter((item) => this.searchSuitableItems(item, value)));
 
@@ -30,7 +35,7 @@ class Search extends InputTmp {
     ProductList.start(products);
   }
 
-  searchSuitableItems(item: IItem, value: string) {
+  static searchSuitableItems(item: IItem, value: string) {
     let result = false;
 
     if (item.title.toLowerCase().indexOf(value) >= 0) {
