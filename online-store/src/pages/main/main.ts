@@ -5,6 +5,7 @@ import ProductList from '@/core/components/productList/productList';
 import MultiRange from '@/core/components/range/multeRange';
 import State from '@/state/state';
 import Select from '@/core/components/select/select';
+import Search from '@/core/components/search/search';
 
 class MainPage extends Page {
   static TextObject = {
@@ -24,11 +25,14 @@ class MainPage extends Page {
     const priceRange = new MultiRange(this.container, 'price', State.getMinMaxPrice());
     const stockRange = new MultiRange(this.container, 'stock', State.getMinMaxStock());
     const productPage = new Div(this.container, 'product-page');
+    const sortProducts = new Div(this.container, 'sort-products');
     const select = new Select(this.container, 'select');
+    const search = new Search(this.container, 'search');
     const productList = new ProductList(this.container, 'product-list', State.getProducts());
 
+    sortProducts.element.append(select.element, search.element);
     filter.element.append(category.element, brand.element, priceRange.element, stockRange.element);
-    productPage.element.append(select.element, productList.element);
+    productPage.element.append(sortProducts.element, productList.element);
     mainPage.element.append(filter.element, productPage.element);
     this.container.append(title, mainPage.element);
 
