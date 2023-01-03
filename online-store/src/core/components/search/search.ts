@@ -1,11 +1,12 @@
 import InputTmp from './inputTmp';
 import {IItem} from '@/types/type';
-import GetFilteredItem from '@/filtration/addOptionsByFilter';
-import State from '@/state/state';
-import ProductList from '../productList/productList';
+import GetFilteredItem from '@/filtration/getFilteredItem';
+import emptyPromise from '@/filtration/emptyPromise';
 
 class Search extends InputTmp {
   static searchingValue: string = '';
+
+  static products: Promise<IItem[]> = emptyPromise;
 
   constructor(parent: HTMLElement, nameClass: string) {
     super(parent, nameClass);
@@ -17,22 +18,16 @@ class Search extends InputTmp {
     this.element.addEventListener('input', () => {
       Search.searchingValue = this.element.value.toLowerCase();
 
-      Search.search(Search.searchingValue);
+      GetFilteredItem.getFilteredItem('search', Search.searchingValue);
     });
   }
 
-  static async search(value: string) {
-    let products: Promise<IItem[]> = Promise.all((await GetFilteredItem.filteredItems));
-
-    if ((await products)[0].title === 'empty') {
-      products = await State.getProducts();
-      products = Promise.all(await products);
-    }
+  static async search(value: string, items: Promise<IItem[]>) {
+    let products = Promise.all(await items);
 
     products = Promise.all((await products).filter((item) => this.searchSuitableItems(item, value)));
 
-    ProductList.elem.textContent = '';
-    ProductList.start(products);
+    return products;
   }
 
   static searchSuitableItems(item: IItem, value: string) {
