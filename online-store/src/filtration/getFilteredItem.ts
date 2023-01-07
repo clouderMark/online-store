@@ -6,11 +6,13 @@ import {addOptions} from './addOptions';
 import Select from '@/core/components/select/select';
 import Search from '@/core/components/search/search';
 import Found from '@/core/components/found/found';
+import {checkAllItems} from './checkAllItems';
+import {addToQuery} from './fromQuery/addToQuery';
 
 const category: string[] = [];
 const brand: string[] = [];
-const price: number[] = [0, Infinity];
-const stock: number[] = [0, Infinity];
+const price: number[] = [0, 999999];
+const stock: number[] = [0, 999999];
 
 class GetFilteredItem {
   static selected: {[key: string]: Array<string | number>} = {category, brand, price, stock};
@@ -19,11 +21,11 @@ class GetFilteredItem {
 
   static async getFilteredItem(flag: string, selectedPoints: string | number) {
     addOptions(flag, selectedPoints, this.selected);
+    addToQuery(flag, selectedPoints, this.selected);
 
-    ProductList.elem.textContent = '';
     const products: Promise<IItem[]> = await State.getProducts();
 
-    this.filteredItems = Promise.all((await products).filter((item) => this.checkAllItems(item)));
+    this.filteredItems = Promise.all((await products).filter((item) => checkAllItems(item, this.selected)));
     if (flag === 'search' && typeof selectedPoints === 'string') {
       this.filteredItems = Search.search(selectedPoints, this.filteredItems);
     } else {
@@ -40,37 +42,6 @@ class GetFilteredItem {
     ProductList.start(this.filteredItems);
 
     Found.fromFilter((await this.filteredItems).length);
-  }
-
-  static checkAllItems(item: IItem) {
-    let selectedTypes = 0;
-    let result = 0;
-
-    for (const variable in this.selected) {
-      if (this.selected[variable].length > 0) {
-        selectedTypes++;
-      }
-    }
-
-    for (const variable in this.selected) {
-      if (variable === 'category' || variable === 'brand') {
-        for (let i = 0; i < this.selected[variable].length; i++) {
-          if (item[variable].toLowerCase() === this.selected[variable][i]) {
-            result++;
-          }
-        }
-      }
-    }
-
-    if (item.price >= this.selected.price[0] && item.price <= this.selected.price[1]) {
-      result++;
-    }
-
-    if (item.stock >= this.selected.stock[0] && item.stock <= this.selected.stock[1]) {
-      result++;
-    }
-
-    return selectedTypes === result;
   }
 }
 

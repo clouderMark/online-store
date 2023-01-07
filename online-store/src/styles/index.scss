@@ -33,6 +33,7 @@ body {
 
 .select {
 	margin-bottom: 5px;
+	cursor: pointer;
 }
 
 .sort-products {
@@ -42,9 +43,32 @@ body {
 
 .search {
 	height: 7px;
+	cursor: pointer;
 }
 
 .found {
 	color: $foundColor;
 	font-size: 6px;
+}
+
+.filter-buttons {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 2px;
+	
+	&__button {
+		flex-grow: 1;
+		height: 7px;
+		background-color: $filter-button;
+		border: none;
+		cursor: pointer;
+
+		&:hover {
+			background-color: darken($color: $filter-button, $amount: 10);
+		}
+	}
+
+	&__reset {
+		margin-right: 2px;
+	}
 }

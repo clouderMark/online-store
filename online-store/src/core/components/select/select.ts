@@ -7,8 +7,11 @@ import {IItem} from '@/types/type';
 class Select extends SelectTmp {
   static selectValue: string = '';
 
+  static el: HTMLSelectElement;
+
   constructor(parent: HTMLElement, tagClass: string) {
     super(parent, tagClass);
+    Select.el = this.element;
     this.start();
   }
 

@@ -4,8 +4,10 @@ export function addOptions(
   obj: {[key: string]: Array<string | number>},
 ) {
   if ((flag === 'category' || flag === 'brand') && typeof option === 'string') {
+    // if (!obj[flag].includes(option.toLowerCase())) obj[flag].push(option.toLowerCase());
     if (obj[flag].indexOf(option.toLowerCase()) >= 0) {
       obj[flag].splice(obj[flag].indexOf(option.toLowerCase()), 1);
+      console.log(flag, option);
     } else {
       obj[flag].push(option.toLowerCase());
     }
@@ -18,6 +20,4 @@ export function addOptions(
   } else if (flag === 'maxStock' && typeof option === 'number') {
     obj.stock[1] = option;
   }
-
-  return obj;
 }

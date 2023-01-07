@@ -7,6 +7,8 @@ import State from '@/state/state';
 import Select from '@/core/components/select/select';
 import Search from '@/core/components/search/search';
 import Found from '@/core/components/found/found';
+// import {addFiltersFromQuery} from '@/filtration/fromQuery/addFiltersFromQuery';
+import FilterButtons from '@/core/components/filterButtons/filterButtons';
 
 class MainPage extends Page {
   static TextObject = {
@@ -31,12 +33,21 @@ class MainPage extends Page {
     const found = new Found(this.container, 'found');
     const search = new Search(this.container, 'search');
     const productList = new ProductList(this.container, 'product-list', State.getProducts());
+    const filterButtons = new FilterButtons(this.container, 'filter-buttons');
 
     sortProducts.element.append(select.element, found.element, search.element);
-    filter.element.append(category.element, brand.element, priceRange.element, stockRange.element);
+    filter.element.append(
+      filterButtons.element,
+      category.element,
+      brand.element,
+      priceRange.element,
+      stockRange.element,
+    );
     productPage.element.append(sortProducts.element, productList.element);
     mainPage.element.append(filter.element, productPage.element);
     this.container.append(title, mainPage.element);
+
+    // addFiltersFromQuery();
 
     return this.container;
   }

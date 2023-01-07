@@ -7,10 +7,26 @@ import {doForMax} from './doForMax';
 class MultiRange extends Div {
   title: string;
 
-  constructor(parent: HTMLElement, title: string, minMaxValue: Promise<{min: number, max: number}>) {
+  static minPriceEl: HTMLInputElement;
+
+  static maxPriceEl: HTMLInputElement;
+
+  static minSrockEl: HTMLInputElement;
+
+  static maxSrockEl: HTMLInputElement;
+
+  static minPrice: HTMLElement;
+
+  static maxPrice: HTMLElement;
+
+  static minStock: HTMLElement;
+
+  static maxStock: HTMLElement;
+
+  constructor(parent: HTMLElement, title: string, value: Promise<{min: number, max: number}>) {
     super(parent, 'multirange');
     this.title = title;
-    this.start(minMaxValue);
+    this.start(value);
   }
 
   async start(minMax: Promise<{min: number, max: number}>) {
@@ -35,25 +51,31 @@ class MultiRange extends Div {
 
     min.element.textContent = `${(await minMax).min}${postfix}`;
     max.element.textContent = `${(await minMax).max}${postfix}`;
-
     rangeMin.element.addEventListener('input', () => {
       minVal = doForMin(minVal, rangeMin, min, postfix, rangeMax);
     });
-
     rangeMax.element.addEventListener('input', () => {
       maxVal = doForMax(maxVal, rangeMax, max, postfix, rangeMin);
     });
-
     rangeMin.element.addEventListener('change', () => {
       GetFilteredItem.getFilteredItem(this.title === 'price' ? 'minPrice' : 'minStock', +minVal);
     });
-
     rangeMax.element.addEventListener('change', () => {
       GetFilteredItem.getFilteredItem(this.title === 'price' ? 'maxPrice' : 'maxStock', +maxVal);
     });
-
     title.element.textContent = this.title;
     this.element.append(rangeMin.element, rangeMax.element, min.element, max.element);
+    if (this.title === 'price') {
+      MultiRange.minPriceEl = rangeMin.element;
+      MultiRange.maxPriceEl = rangeMax.element;
+      MultiRange.minPrice = min.element;
+      MultiRange.maxPrice = max.element;
+    } else if (this.title === 'stock') {
+      MultiRange.minSrockEl = rangeMin.element;
+      MultiRange.maxSrockEl = rangeMax.element;
+      MultiRange.minStock = min.element;
+      MultiRange.maxStock = max.element;
+    }
   }
 }
 export default MultiRange;
