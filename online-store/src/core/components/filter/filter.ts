@@ -1,5 +1,5 @@
 import {Template} from '@/core/templates/template';
-import Checkbox from '../checkbox/checkbox';
+import Chbx from '../checkbox/checkbox';
 import Label from '../label/label';
 // import {filterByCategory} from '@/filtration/filtration';
 import GetFilteredItem from '@/filtration/getFilteredItem';
@@ -22,25 +22,25 @@ class Filter extends Template {
     */
     const category: HTMLElement | null = document.querySelector('.category');
     const label = new Label(category!, 'category');
-    const checkbox = new Checkbox(label.element, el);
+    const checkbox = new Chbx(label.element, el);
 
     checkbox.render();
     label.render();
-    label.element.addEventListener('change', () => {
-      GetFilteredItem.getFilteredItem('category', label.element.textContent!);
+    checkbox.element.addEventListener('change', () => {
+      GetFilteredItem.getFilteredItem('category', checkbox.element.value);
     });
   }
 
   private async drawVariantsForBrands(el: string) {
     const brand: HTMLElement | null = document.querySelector('.brand');
     const label = new Label(brand!, 'category');
-    const checkbox = new Checkbox(label.element, el);
+    const checkbox = new Chbx(label.element, el);
 
     checkbox.render();
     label.render();
-    label.element.addEventListener('change', () => {
+    checkbox.element.addEventListener('change', () => {
       // console.log(label.element.textContent);
-      GetFilteredItem.getFilteredItem('brand', label.element.textContent!);
+      GetFilteredItem.getFilteredItem('brand', checkbox.element.value);
     });
   }
 

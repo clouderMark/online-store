@@ -8,6 +8,8 @@ class Search extends InputTmp {
 
   static products: Promise<IItem[]> = emptyPromise;
 
+  static el: HTMLInputElement;
+
   constructor(parent: HTMLElement, nameClass: string) {
     super(parent, nameClass);
 
@@ -20,6 +22,9 @@ class Search extends InputTmp {
 
       GetFilteredItem.getFilteredItem('search', Search.searchingValue);
     });
+
+    this.element.placeholder = 'Search product';
+    Search.el = this.element;
   }
 
   static async search(value: string, items: Promise<IItem[]>) {

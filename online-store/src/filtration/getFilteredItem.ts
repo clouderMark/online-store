@@ -7,11 +7,12 @@ import Select from '@/core/components/select/select';
 import Search from '@/core/components/search/search';
 import Found from '@/core/components/found/found';
 import {checkAllItems} from './checkAllItems';
+import {addToQuery} from './fromQuery/addToQuery';
 
 const category: string[] = [];
 const brand: string[] = [];
-const price: number[] = [0, Infinity];
-const stock: number[] = [0, Infinity];
+const price: number[] = [0, 999999];
+const stock: number[] = [0, 999999];
 
 class GetFilteredItem {
   static selected: {[key: string]: Array<string | number>} = {category, brand, price, stock};
@@ -20,6 +21,7 @@ class GetFilteredItem {
 
   static async getFilteredItem(flag: string, selectedPoints: string | number) {
     addOptions(flag, selectedPoints, this.selected);
+    addToQuery(flag, selectedPoints, this.selected);
 
     const products: Promise<IItem[]> = await State.getProducts();
 

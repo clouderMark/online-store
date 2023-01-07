@@ -4,6 +4,7 @@ import BasketPage from '../basket';
 import ItemPage from '../item';
 import Header from '@/core/components/header/header';
 import NotFoundPage from '../notFound';
+import {addFiltersFromQuery} from '@/filtration/fromQuery/addFiltersFromQuery';
 
 export const enum PageId {
   StorePage = 'store-page',
@@ -28,6 +29,7 @@ class App {
 
     if (idPage === '' || idPage === PageId.StorePage) {
       page = new MainPage(PageId.StorePage);
+      addFiltersFromQuery();
     } else if (idPage === PageId.BasketPage) {
       page = new BasketPage(idPage);
     } else if (idPage === PageId.ItemPage) {
@@ -58,6 +60,7 @@ class App {
   constructor() {
     this.initialPage = new MainPage('main-page');
     this.header = new Header('div', 'navigation');
+    // addFiltersFromQuery();
   }
 
   run() {
