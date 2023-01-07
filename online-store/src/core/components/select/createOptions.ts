@@ -1,5 +1,5 @@
 export function createOptions(elem: HTMLSelectElement) {
-  const sortOptions = new Option('Sort Options');
+  const sortOptions = new Option('Sort Options', 'sortOptions');
   const sortByPriceA = new Option('Sort by price ASC', 'priceASC');
   const sortByPriceD = new Option('Sort by price DESC', 'priceDESC');
   const sortByRatingA = new Option('Sort by rating ASC', 'ratingASC');

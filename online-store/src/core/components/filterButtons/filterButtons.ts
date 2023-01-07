@@ -1,6 +1,6 @@
 import Button from '../button/button';
 import Div from '../div/div';
-// import {addFiltersFromQuery} from '@/filtration/fromQuery/addFiltersFromQuery';
+import {actionForReset} from './actionsForReset';
 
 class FilterButtons extends Div {
   constructor(parent: HTMLElement, tagClass: string) {
@@ -9,24 +9,23 @@ class FilterButtons extends Div {
     this.start();
   }
 
-  start() {
+  async start() {
     const reset = new Button(this.element, 'filter-buttons__reset filter-buttons__button');
     const copy = new Button(this.element, 'filter-buttons__copy filter-buttons__button');
 
     reset.element.textContent = 'Reset';
     copy.element.textContent = 'Copy link';
 
-    reset.element.onclick = function rf() {
-      // const url = window.location.href;
-      // const positionFrom = url.indexOf('/?category');
-      // const cleanUrl = url.slice(0, positionFrom);
+    reset.element.onclick = function click() {
+      actionForReset();
+    };
 
-      // window.history.pushState('object or string', 'Title', cleanUrl);
-      // addFiltersFromQuery();
+    copy.element.onclick = function click() {
+      window.navigator.clipboard.writeText(window.location.href);
     };
 
     this.element.append(reset.element, copy.element);
-  }// window.history.pushState('object or string', 'Title', `?${result}`)
+  }
 }
 
 export default FilterButtons;
