@@ -1,0 +1,18 @@
+.navigation {
+  background-color: $navigation;
+  color: white;
+  height: 15px;
+  
+  & div {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+
+    & a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+    }
+  }
+}

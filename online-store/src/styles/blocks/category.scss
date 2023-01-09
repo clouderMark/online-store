@@ -1,0 +1,15 @@
+.category {
+	display: flex;
+	flex-direction: column;
+	width: 52px;
+	height: 70px;
+	overflow-y: scroll;
+	border: 1px solid $category-border;
+	padding: 2px;
+	margin-bottom: 2px;
+
+	&__label {
+		display: flex;
+		justify-content: space-between;
+	}
+}

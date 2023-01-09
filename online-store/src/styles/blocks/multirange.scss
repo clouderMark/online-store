@@ -1,0 +1,79 @@
+input[type='range'] {
+	width: 95%;
+	height: 15px;
+	overflow: hidden;
+	cursor: pointer;
+	outline: none;
+}
+
+input[type='range'],
+input[type='range']::-webkit-slider-runnable-track,
+input[type='range']::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	background: none;
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+	width: 100%;
+	height: 1px;
+	background: $rangeTrack;
+}
+
+input[type='range']:nth-child(2)::-webkit-slider-runnable-track {
+	background: none;
+}
+
+input[type='range']::-webkit-slider-thumb {
+	position: relative;
+	height: 5px;
+	width: 5px;
+	margin-top: -7px;
+	background: transparent;
+	border: 2px solid $rangeThumb;
+	border-radius: 50%;
+	z-index: 1;
+  margin-top: -2.4px;
+}
+
+input[type='range']:active::-webkit-slider-thumb {
+	border: 2px solid $rangeThumbActive;
+}
+
+input[type='range']:nth-child(1)::-webkit-slider-thumb {
+	z-index: 2;
+}
+
+.multirange {
+
+	&__title {
+		text-align: center;
+		border-bottom: 1px solid $brand-border;
+
+		&:first-letter {
+			text-transform: uppercase;
+		}
+	}
+
+	position: relative;
+	height: 32px;
+	width: 52px;
+  padding: 1.5px;
+	display: inline-block;
+	border: 1px solid $brand-border;
+	margin-bottom: 2px;
+
+	& input {
+		position: absolute;
+		top: 13px;
+		position: absolute;
+	}
+
+	&__content {
+		position: absolute;
+		top: 10px;
+	}
+
+	&__right {
+		right: 1.5px;
+	}
+}

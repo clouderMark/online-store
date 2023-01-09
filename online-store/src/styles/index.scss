@@ -1,0 +1,103 @@
+@import '~normalize.css';
+@import 'variables';
+@import 'blocks/border-box';
+@import 'blocks/a';
+@import 'blocks/img';
+@import 'blocks/list-style-ul';
+@import 'blocks/visually-hidden';
+
+body {
+	padding-left: 20px;
+	padding-right: 20px;
+	background-color: $body;
+	font-size: 4.5px;
+}
+
+@import 'blocks/navigation';
+@import 'blocks/category';
+@import 'blocks/label';
+@import 'blocks/brand';
+@import 'blocks/main-page';
+@import 'blocks/product-list';
+@import 'blocks/item';
+@import 'blocks/multirange';
+
+.filter {
+	width: 52px;
+}
+
+.product-page {
+	flex-grow: 1;
+	margin-left: 10px;
+}
+
+.select {
+	margin-bottom: 5px;
+	cursor: pointer;
+}
+
+.sort-products {
+	display: flex;
+	justify-content: space-between;
+}
+
+.search {
+	height: 7px;
+	cursor: pointer;
+}
+
+.found {
+	color: $foundColor;
+	font-size: 6px;
+}
+
+.filter-buttons {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 2px;
+	
+	&__button {
+		flex-grow: 1;
+		height: 7px;
+		background-color: $filter-button;
+		border: none;
+		cursor: pointer;
+
+		&:hover {
+			background-color: darken($color: $filter-button, $amount: 10);
+		}
+	}
+
+	&__reset {
+		margin-right: 2px;
+	}
+}
+
+@import 'blocks/breadcumps';
+
+.product {
+	border: solid 1px red;
+	height: 200px;
+	
+	&__title {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 14px;
+		font-size: 10px;
+		background-color: $background-info;
+	}
+	
+	&__content {
+		height: 180px;
+		display: flex;
+		align-items: center;
+	}
+
+	&__img {
+		width: 100px;
+		height: 120px;
+		background-size: 100%;
+		background-repeat: no-repeat;
+	}
+}
