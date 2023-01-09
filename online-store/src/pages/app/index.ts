@@ -5,6 +5,7 @@ import ItemPage from '../item';
 import Header from '@/core/components/header/header';
 import NotFoundPage from '../notFound';
 import {addFiltersFromQuery} from '@/filtration/fromQuery/addFiltersFromQuery';
+import {checkHash} from '@/core/components/checkHash/checkHash';
 
 export const enum PageId {
   StorePage = 'store-page',
@@ -32,7 +33,7 @@ class App {
       addFiltersFromQuery();
     } else if (idPage === PageId.BasketPage) {
       page = new BasketPage(idPage);
-    } else if (idPage === PageId.ItemPage) {
+    } else if (checkHash(idPage)) {
       page = new ItemPage(idPage);
     } else {
       page = new NotFoundPage('notFound');

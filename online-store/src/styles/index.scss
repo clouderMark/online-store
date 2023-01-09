@@ -72,3 +72,32 @@ body {
 		margin-right: 2px;
 	}
 }
+
+@import 'blocks/breadcumps';
+
+.product {
+	border: solid 1px red;
+	height: 200px;
+	
+	&__title {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 14px;
+		font-size: 10px;
+		background-color: $background-info;
+	}
+	
+	&__content {
+		height: 180px;
+		display: flex;
+		align-items: center;
+	}
+
+	&__img {
+		width: 100px;
+		height: 120px;
+		background-size: 100%;
+		background-repeat: no-repeat;
+	}
+}
