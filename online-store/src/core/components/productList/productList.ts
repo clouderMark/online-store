@@ -24,6 +24,7 @@ class ProductList extends Template {
       item.rating,
       item.stock,
       item.images[0],
+      item.id,
     );
 
     catalog!.append(productItem.element);

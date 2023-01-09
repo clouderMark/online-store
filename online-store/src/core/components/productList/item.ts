@@ -24,6 +24,8 @@ class Item extends Template {
 
   images: string;
 
+  id: number;
+
   constructor(
     parent: HTMLElement,
     thisClass: string,
@@ -35,6 +37,7 @@ class Item extends Template {
     rating: number,
     stock: number,
     images: string,
+    id: number,
   ) {
     super(parent, 'div', `${thisClass}`);
     this.parent = parent;
@@ -47,6 +50,7 @@ class Item extends Template {
     this.rating = rating;
     this.stock = stock;
     this.images = images;
+    this.id = id;
     this.itemCreate();
   }
 
@@ -69,6 +73,14 @@ class Item extends Template {
     const buttonAdd = new Button(this.element, `${this.thisClass}__button-add`);
 
     buttonAdd.element.textContent = 'add to cart';
+
+    const currentItem = this.id;
+
+    this.element.id = `${currentItem}`;
+
+    this.element.onclick = function openItem() {
+      window.location.hash = `page-item-${currentItem}`;
+    };
 
     this.element.append(itemTitle.element, itemInfo.element, buttonAdd.element);
   }
